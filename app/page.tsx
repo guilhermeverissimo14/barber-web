@@ -1,6 +1,7 @@
+import { Button } from "./_components/ui/button";
 
 export default function Home() {
   return (
-    <h1 className="bg-slate-600">Teste </h1>
+    <Button >Hello World</Button>
   );
 }
