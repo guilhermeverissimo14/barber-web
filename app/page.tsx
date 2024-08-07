@@ -10,7 +10,13 @@ import { db } from "./_lib/prisma";
 import BarberShopItem from "./_components/BarberShop-item";
 
 const Home = async () => {
+
   const barbershops = await db.barbershop.findMany({});
+
+  const popularBarberShops = await db.barbershop.findMany({
+    orderBy: { name: "desc" }
+  });
+
   return (
     <div>
       <Header />
@@ -24,6 +30,26 @@ const Home = async () => {
             <SearchIcon />
           </Button>
         </div>
+
+        <div className="flex gap-3 mt-6">
+
+          <Button className="gap-2" variant="secondary">
+            <Image alt="Cabelo" src="/cabelo.svg" width={16} height={16} />
+            Cabelo
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+            <Image alt="Barba" src="/barba.svg" width={16} height={16} />
+            Barba
+          </Button>
+
+          <Button className="gap-2" variant="secondary">
+            <Image alt="Acabamento" src="/acabamento.svg" width={16} height={16} />
+            Acabamento
+          </Button>
+
+        </div>
+
         <div className="relative mt-6 md:h-[350px] h-[150px] w-full ">
           <Image
             alt="Agende nos melhores com o barbeiros"
@@ -66,6 +92,23 @@ const Home = async () => {
           ))}
         </div>
 
+        <h2 className="mb-3 mt-6 font-bold uppercase text-gray-400 text-xs">
+          Populares
+        </h2>
+
+        <div className="flex gap-4 overflow-aut ">
+          {popularBarberShops.map((barbershop) => (
+            <BarberShopItem key={barbershop.id} barbershop={barbershop} />
+          ))}
+        </div>
+
+        <footer>
+          <Card>
+            <CardContent className="px-5 py-6">
+              <p className="text-sm text-gray-400">© 2023 Copyright <span className="font-bold">App Barber</span></p>
+            </CardContent>
+          </Card>
+        </footer>
 
       </div>
     </div>
