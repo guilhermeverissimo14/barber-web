@@ -4,10 +4,11 @@ import { Button } from "./_components/ui/button";
 import { Input } from "./_components/ui/input";
 import Image from "next/image";
 import { Card, CardContent } from "./_components/ui/card";
-import { Badge } from "./_components/ui/badge";
-import { Avatar, AvatarImage } from "./_components/ui/avatar";
 import { db } from "./_lib/prisma";
 import BarberShopItem from "./_components/BarberShop-item";
+import { quikSearchOptions } from "./_constants/search";
+import BookingItem from "./_components/Booking-item";
+
 
 const Home = async () => {
 
@@ -31,23 +32,13 @@ const Home = async () => {
           </Button>
         </div>
 
-        <div className="flex gap-3 mt-6">
-
-          <Button className="gap-2" variant="secondary">
-            <Image alt="Cabelo" src="/cabelo.svg" width={16} height={16} />
-            Cabelo
-          </Button>
-
-          <Button className="gap-2" variant="secondary">
-            <Image alt="Barba" src="/barba.svg" width={16} height={16} />
-            Barba
-          </Button>
-
-          <Button className="gap-2" variant="secondary">
-            <Image alt="Acabamento" src="/acabamento.svg" width={16} height={16} />
-            Acabamento
-          </Button>
-
+        <div className="flex gap-3 mt-6 overflow-x-scroll  [&::-webkit-scrollbar]:hidden">
+          {quikSearchOptions.map((option) => (
+            <Button key={option.title} className="gap-2" variant="secondary">
+              <Image alt={option.title} src={option.imageUrl} width={16} height={16} />
+              {option.title}
+            </Button>
+          ))}
         </div>
 
         <div className="relative mt-6 md:h-[350px] h-[150px] w-full ">
@@ -58,35 +49,13 @@ const Home = async () => {
             className="rounded-xl object-cover" />
         </div>
 
-        <h2 className="mb-3 mt-6 font-bold uppercase text-gray-400 text-xs">Agendamentos</h2>
-
-        <Card>
-          <CardContent className="flex justify-between md:justify-around p-0">
-            <div className="flex flex-col gap-2 py-5 pl-5">
-              <Badge className="w-fit">Confirmado</Badge>
-              <h3 className="font-semibold">Corte de cabelo</h3>
-              <div className="flex items-center gap-2">
-                <Avatar>
-                  <AvatarImage src="https://utfs.io/f/c97a2dc9-cf62-468b-a851-bfd2bdde775f-16p.png" />
-                </Avatar>
-                <p>Barbearia</p>
-              </div>
-            </div>
-
-            <div className="flex flex-col items-center justify-center px-5 border-l-2 border-solid">
-              <p className="text-sm">Agosto</p>
-              <p className="text-2xl">05</p>
-              <p className="text-sm">20:00</p>
-            </div>
-          </CardContent>
-        </Card>
-
+        <BookingItem />
 
         <h2 className="mb-3 mt-6 font-bold uppercase text-gray-400 text-xs">
           Recomendados
         </h2>
 
-        <div className="flex gap-4 overflow-aut [&::-webkit-scrollbar]:hidden">
+        <div className="flex gap-4  overflow-x-scroll [&::-webkit-scrollbar]:hidden">
           {barbershops.map((barbershop) => (
             <BarberShopItem key={barbershop.id} barbershop={barbershop} />
           ))}
@@ -96,7 +65,7 @@ const Home = async () => {
           Populares
         </h2>
 
-        <div className="flex gap-4 overflow-aut ">
+        <div className="flex gap-4  overflow-x-scroll ">
           {popularBarberShops.map((barbershop) => (
             <BarberShopItem key={barbershop.id} barbershop={barbershop} />
           ))}
