@@ -1,3 +1,4 @@
+import ServiceItem from "@/app/_components/Services-item";
 import { Button } from "@/app/_components/ui/button";
 import { db } from "@/app/_lib/prisma";
 import { Barbershop } from "@prisma/client";
@@ -17,6 +18,9 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
     const barbershop = await db.barbershop.findUnique({
         where: {
             id: params.id
+        },
+        include: {
+            services: true
         }
     })
 
@@ -63,6 +67,15 @@ const BarberShopPage = async ({ params }: BarberShopPageProps) => {
             <div className="p-5 border-b border-solid space-y-3">
                 <h2 className="text-xs font-bold uppercase text-gray-400">Sobre nós</h2>
                 <p className="text-sm text-justify">{barbershop?.description}</p>
+            </div>
+
+            <div className="p-5">
+                <h2 className="text-xs font-bold uppercase text-gray-400 mb-3">Serviços</h2>
+                <div className="space-y-3 p-5">
+                    {barbershop.services.map((service) => (
+                        <ServiceItem key={service.id} service={service} />
+                    ))}
+                </div>
             </div>
 
         </div>
