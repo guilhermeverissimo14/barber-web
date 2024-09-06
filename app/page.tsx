@@ -65,19 +65,11 @@ const Home = async () => {
           Populares
         </h2>
 
-        <div className="flex gap-4  overflow-x-scroll ">
+        <div className="flex gap-4  overflow-x-scroll [&::-webkit-scrollbar]:hidden">
           {popularBarberShops.map((barbershop) => (
             <BarberShopItem key={barbershop.id} barbershop={barbershop} />
           ))}
         </div>
-
-        <footer>
-          <Card>
-            <CardContent className="px-5 py-6">
-              <p className="text-sm text-gray-400">© 2023 Copyright <span className="font-bold">App Barber</span></p>
-            </CardContent>
-          </Card>
-        </footer>
 
       </div>
     </div>
