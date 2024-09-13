@@ -3,7 +3,6 @@ import Header from "./_components/Header";
 import { Button } from "./_components/ui/button";
 import { Input } from "./_components/ui/input";
 import Image from "next/image";
-import { Card, CardContent } from "./_components/ui/card";
 import { db } from "./_lib/prisma";
 import BarberShopItem from "./_components/BarberShop-item";
 import { quikSearchOptions } from "./_constants/search";
