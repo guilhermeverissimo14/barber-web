@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: project_barber
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: app_barber  # Nome do banco de dados
+    ports:
+      - '5432:5432'  # Expor a porta 5432 para o host
+    volumes:
+      - ./.postgres-data:/var/lib/postgresql/data  # Persistir dados localmente
+
+volumes:
+  postgres-data:
